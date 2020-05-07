@@ -1,5 +1,4 @@
 
-
 // --- Google aliases ------------------------------------------------------------------------------
 export type Spreadsheet  = GoogleAppsScript.Spreadsheet.Spreadsheet;
 export type Sheet        = GoogleAppsScript.Spreadsheet.Sheet;

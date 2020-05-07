@@ -1,16 +1,9 @@
-import { extractJobs } from "./spreadsheet/spreadsheet";
-import { TTClient } from "./zoho/timetracker";
-import { TTParams } from "./zoho/types";
-import { Job } from "./models";
+import { logCurrentDay } from "./tasks-logging/tasklogger";
+import { mailTrace } from "./infra/maintenance";
 
 function main() {
 
-  const jobs = extractJobs();
-  const hours: number = jobs.reduce((sum: number, job: Job) => { return sum + job.Time }, 0);
-
-
-  const TT = new TTClient()
-
-  TT.pushTask(new TTParams(hours))
+  logCurrentDay();
+  mailTrace();
 
 }

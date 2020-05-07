@@ -1,0 +1,12 @@
+{
+  "response": {
+    "result": [
+      {
+        "timeLogId": "974000006243952"
+      }
+    ],
+    "message": "Timelog entry added Successfully",
+    "uri": "/api/timetracker/addtimelog",
+    "status": 0
+  }
+}

@@ -1,14 +1,14 @@
 {
-  "name": "gtalent",
+  "name": "pumpkin",
   "version": "0.0.1",
-  "description": "",
+  "description": "poorly thought-out tools for your yesterday's self",
   "main": "app.ts",
   "scripts": {
-    "gasp-clean": "find src -type f -name '*.ts' -exec sed -i 's\/export \/\/g' {} \\;",
-    "push": "npm run gasp-clean; clasp push",
-    "pull": "clasp pull"
+    "push": "npm run _gasp-clean; clasp push",
+    "pull": "clasp pull",
+    "_gasp-clean": "find src -type f -name '*.ts' -exec sed -i 's\/export \/\/g' {} \\;"
   },
-  "author": "dario.gullon@sngular.com",
+  "author": "git.gdario@gmail.com",
   "devDependencies": {
     "@types/google-apps-script": "^1.0.11",
     "typescript": "^3.8.3"

@@ -1,26 +1,27 @@
 import { getDesiredRange } from "./utils";
-import { JobStatus, Job } from "../models";
+import { Task } from "../models/task";
+import { datesAreEqual } from "../utils/date";
 
-export function extractJobs() : Job[] {
+export function extractTasksFromSpreadsheet(date: Date = new Date()) : Task[] {
 
-  const jobs: Job[] = getDesiredRange().getValues()
-    .map(row => {
-      return <Job>{
-        Name: row[0],
-        Date: row[1],
-        Account: row[2],
-        SubAccount: row[3],
-        Task: row[4],
-        Time: row[5],
-        SubAccountTitle: row[6],
-        Status: Job.ParseStatus(row[7]),
-      };
-    }
-  );
+  const tasks: Task[] = getDesiredRange().getValues().map(row => {
+    return <Task>{
+      Date: Task.parseDate(row[1]),
+      Task: row[4],
+      Time: row[5],
+      Status: Task.parseStatus(row[7]),
+    };
+  });
 
-  const filtered = jobs.filter( job => job.Status == JobStatus.ToBeProcessed);
-  Logger.log(`Fetched ${jobs.length} rows of which, ${filtered.length} are to be used`);
+  const tasksOnDate = tasks.filter( task => datesAreEqual(task.Date, date));
 
-  return filtered;
+  if (tasksOnDate.length === 0){
+    Logger.log(`TOTAL TASKS: ${JSON.stringify(tasks)}`);
+    throw new Error("No tasks found for today");
+  }
+
+  Logger.log(`Found following tasks for today: ${JSON.stringify(tasksOnDate, null, '\t')}`);
+
+  return tasksOnDate;
 
 }

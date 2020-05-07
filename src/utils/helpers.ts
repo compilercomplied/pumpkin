@@ -3,7 +3,7 @@
 // Functions and utilities to aid in setting up the project
 // -------------------------------------------------------------------------------------------------
 
-import { SPREADSHEET } from "./config";
+import { SPREADSHEET } from "../config";
 
 
 //** Logs name-id sheet pairs for specified spreadsheet * /

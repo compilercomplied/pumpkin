@@ -1,26 +1,20 @@
-import { ZOHO_BASEJOB } from "../config";
+import { ZOHO_BASETASK } from "../config";
 
 export type BillingStatus = "billable" | "nonBillable";
 
-export class ZohoDate extends Date {
+export class ZohoTask {
 
-  constructor() { super(); }
-
-  asZohoDate(): string {
-
-    return `${this.getFullYear()}-${this.getMonth()}-${this.getDay()}`;
-
-  }
-
-}
-
-export class TTParams {
+  readonly workDate: string;
 
   constructor(
     readonly hours: number, 
-    readonly jobId: number = ZOHO_BASEJOB,
+    readonly jobId: number = ZOHO_BASETASK,
     readonly billingStatus: BillingStatus = "billable",
-    readonly workDate: ZohoDate = new ZohoDate(),
-  ) { }
+    private readonly _date: Date = new Date(),
+  ) { 
+
+    this.workDate = `${_date.getFullYear()}-${_date.getMonth()+1}-${_date.getDate()}`
+
+  }
 
 }

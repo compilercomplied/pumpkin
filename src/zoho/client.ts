@@ -11,27 +11,33 @@ export abstract class ZohoClient {
   protected call(endpoint: string, options: HttpOptions): HttpResponse {
 
     const uri = this.appendCredentials(`${ZohoClient.baseUri}/${endpoint}`);
+    options.muteHttpExceptions = true;  // logging
 
-    Logger.log(`Querying ${uri} with args: ${JSON.stringify(options)}`)
+    // Logger.log(`Querying ${uri} with args: ${JSON.stringify(options)}`)
 
     const response = UrlFetchApp.fetch(uri, options);
 
     Logger.log(`Response status: ${response?.getResponseCode() ?? undefined}`);
+    Logger.log(`Response content: ${response?.getContentText() ?? undefined}`);
 
     return response;
 
   }
 
-  protected chainParams(endpoint: string, params: {}): string {
+  protected chainUrlParams(endpoint: string, params: {}): string {
 
     let result = endpoint + "?";
 
-    Object.keys(params).forEach((value, key ) => { 
-        result.concat(`${key}=${value}&`)
+    Object.keys(params)
+      .filter(p => !p.startsWith("_"))
+      .forEach((key) => { 
+        result = result.concat(`${key}=${params[key]}&`)
       }
     );
+    
+    result = result.slice(0, -1);
 
-    return result.slice(0, -1);
+    return result;
 
   }
 

@@ -1,6 +1,6 @@
 import { ZohoClient } from "./client";
 import { HttpResponse, HttpOptions } from "../types";
-import { TTParams } from "./types";
+import { ZohoTask } from "./types";
 
 export class TTClient extends ZohoClient {
 
@@ -8,21 +8,29 @@ export class TTClient extends ZohoClient {
 
   constructor() { super(); }
 
-  public pushTask(args: TTParams): void {
+  public pushTask(args: ZohoTask): void {
 
     const options: HttpOptions = { method: "post" }
 
-    const endpoint = this.chainParams(TTClient.addTimelogUri, args);
+    const endpoint = this.chainUrlParams(TTClient.addTimelogUri, args);
 
     const response: HttpResponse = this.call(endpoint, options);
 
-    if (response.getResponseCode() != 200) 
-    {
-      Logger.log(`Response content: ${response.getContentText()}`);
-      throw new Error(`Response code: ${response.getResponseCode()}`)
-    }
+    this.validateResponse(response);
 
-    Logger.log(response.getContentText());
+  }
+
+  private validateResponse(response: HttpResponse): void {
+
+    if (response.getResponseCode() != 200)
+      throw new Error(`Response code: ${response.getResponseCode()}`)
+
+    const content = response.getContentText();
+
+    if (!content.includes("Timelog entry added Successfully")) {
+      Logger.log(content);
+      throw new Error("Unexpected response");
+    }
 
   }
 
