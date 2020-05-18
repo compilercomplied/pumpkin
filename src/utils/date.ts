@@ -7,3 +7,5 @@ export function datesAreEqual(date1: Date, date2: Date): boolean {
     && date1.getFullYear() === date2.getFullYear();
 
 }
+
+export const isWeekend = (date: Date) => (date.getDate() === 0 || date.getDate() === 6);
