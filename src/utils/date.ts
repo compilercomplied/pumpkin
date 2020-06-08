@@ -8,4 +8,4 @@ export function datesAreEqual(date1: Date, date2: Date): boolean {
 
 }
 
-export const isWeekend = (date: Date) => (date.getDate() === 0 || date.getDate() === 6);
+export const isWeekend = (date: Date) => (date.getDay() === 0 || date.getDay() === 6);
