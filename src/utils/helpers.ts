@@ -16,3 +16,11 @@ export function logSheetAttrs(spreadsheet: string = null) {
     });
 
 }
+
+export function logCalendarIDs() {
+
+  let calendars = CalendarApp.getAllCalendars();
+
+  calendars.forEach(cal => Logger.log(`name: ${cal.getName()} - id: ${cal.getId()}`));
+
+}

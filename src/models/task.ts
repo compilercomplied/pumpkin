@@ -8,7 +8,6 @@ export class Task {
   Status: TaskStatus;
 
   public static parseStatus(stringStatus: string): TaskStatus {
-    // "Introducido" | "Copiado a Excel"
     return stringStatus === 'Introducido' ? TaskStatus.ToBeProcessed : TaskStatus.Processed;
   }
 

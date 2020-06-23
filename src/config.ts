@@ -21,6 +21,9 @@ export const ZOHO_FIXEDTASKS: {id: number, hours: number}[] = parseValueAsArray(
   }) 
 );
 
+// Fixed tasks that are repeated each day in the format of taskid#hours, separated each by a semicolon
+export const HOLIDAY_CALENDARS: string[] = parseValueAsArray("holiday_calendars", ";");
+
 // --- aux -----------------------------------------------------------------------------------------
 function parseValueAsArray(property: string, separator: string) : string[] {
   const raw = PropertiesService.getScriptProperties().getProperty(property);

@@ -4,10 +4,7 @@ import { shouldRun } from "./infra/checks";
 
 function main() {
 
-  if (!shouldRun()) {
-    console.log("Current state is not allowed to run.");
-    return;
-  }
+  if (!shouldRun()) return;
 
   logCurrentDay();
   mailTrace();
