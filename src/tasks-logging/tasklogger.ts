@@ -27,6 +27,6 @@ export function logCurrentDay() {
     )
   }
 
-  console.log(`Pushed time sum: ${totalLoggedTime}`);
+  Logger.log(`Pushed time sum: ${totalLoggedTime}`);
 
 }
