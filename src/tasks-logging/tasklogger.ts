@@ -19,7 +19,9 @@ export function logCurrentDay() {
 
   TT.pushTask(new ZohoTask(hours));
 
-  if (ZOHO_FIXEDTASKS.length > 0) {
+  // If there are any fixed tasks and today is friday...
+  const today = new Date();
+  if (ZOHO_FIXEDTASKS.length > 0 && today.getDate() === 5) {
     ZOHO_FIXEDTASKS.forEach(task => {
         TT.pushTask(new ZohoTask(task.hours, task.id));
         totalLoggedTime += task.hours;
